@@ -4,7 +4,7 @@
 	<groupId>net.sourceforge.jweather</groupId>
 	<artifactId>jweather</artifactId>
 	<version>0.3.1-SNAPSHOT</version>
-	<name>jweather</name>
+	<name>jweather(Solution)</name>
 	<description>jweather is a Java library for parsing raw weather data (e.g. METAR, TAF).
 	Initially it will focus on parsing and providing an API for access to METAR
 	data, but may grow to include access to multiple reporting formats.</description>
