@@ -766,12 +766,15 @@ public class MetarParser {
                                     .substring(pos, pos + 4)));
                 }
 
+                metar.addRunwayVisualRange(runwayVisualRange);
+                
                 // on to the next token
                 if (index < numTokens - 1) {
                     index++;
-                }
+                } else if (index == numTokens -1) return metar;
 
-                metar.addRunwayVisualRange(runwayVisualRange);
+                
+                
             }
 
             log.debug("MetarParser: processing ((String)tokens.get(" + index
@@ -914,8 +917,13 @@ public class MetarParser {
                             .debug("MetarParser: weather group: descriptor: no descriptor");
                 }
 
+                
+                if (((String) tokens.get(index)).length() < pos+2)
+                        log.debug("MetarParser: weather group: no phenomena"); 
+                else 
                 // if we have phenomena (we should always!)
-                if (((String) tokens.get(index)).substring(pos, pos + 2)
+                if (    
+                        ((String) tokens.get(index)).substring(pos, pos + 2)
                         .equals(MetarConstants.METAR_DRIZZLE)
                         || ((String) tokens.get(index)).substring(pos, pos + 2)
                                 .equals(MetarConstants.METAR_RAIN)
@@ -976,7 +984,7 @@ public class MetarParser {
                 // on to the next token
                 if (index < numTokens - 1) {
                     index++;
-                }
+                } else if (index == numTokens -1) return metar;
             }
 
             log.debug("MetarParser: processing ((String)tokens.get(" + index
@@ -1005,7 +1013,7 @@ public class MetarParser {
                             .startsWith(MetarConstants.METAR_OVERCAST)
                     || ((String) tokens.get(index))
                             .startsWith(MetarConstants.METAR_NO_SIGNIFICANT_CLOUDS)) {
-                log.debug("MetarParser: found sky conditions");
+               // log.debug("MetarParser: found sky conditions");
 
                 // we have a sky condition
                 SkyCondition skyCondition = new SkyCondition();
@@ -1041,8 +1049,8 @@ public class MetarParser {
                                 .startsWith(MetarConstants.METAR_CLEAR)) {
                     skyCondition.setContraction(((String) tokens.get(index))
                             .substring(0, 3));
-                    log.debug("MetarParser: sky condition: clear: "
-                            + ((String) tokens.get(index)).substring(0, 3));
+                 //   log.debug("MetarParser: sky condition: clear: "
+                 //           + ((String) tokens.get(index)).substring(0, 3));
                 } else if (((String) tokens.get(index))
                         .startsWith(MetarConstants.METAR_VERTICAL_VISIBILITY)) {
                     skyCondition.setContraction(((String) tokens.get(index))
@@ -1067,13 +1075,13 @@ public class MetarParser {
                 }
 
                 metar.addSkyCondition(skyCondition);
-                log.debug("MetarParser: "
-                        + skyCondition.getNaturalLanguageString());
+              //  log.debug("MetarParser: "
+              //          + skyCondition.getNaturalLanguageString());
 
                 // on to the next token
                 if (index < numTokens - 1) {
                     index++;
-                }
+                } else if (index == numTokens -1) return metar;
             }
 
             log.debug("MetarParser: processing ((String)tokens.get(" + index
@@ -1179,7 +1187,7 @@ public class MetarParser {
                 // on to the next token
                 if (index < numTokens - 1) {
                     index++;
-                }
+                } else if (index == numTokens -1) return metar;
             } 
 	    // Alternative pressure (HPa/mB) (HectoPascal/Millbar)
 	    // QPPPP - QNH
